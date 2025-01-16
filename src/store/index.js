@@ -1,13 +1,13 @@
 import {createStore} from 'redux';
 import {DECREMENT, INCREASE, INCREMENT, TOGGLE} from "../constants";
-import {createSlice} from "@reduxjs/toolkit";
+import {configureStore, createSlice} from "@reduxjs/toolkit";
 
 
 const initState = {counter: 0, showCounter: true};
 
 
 
-createSlice({
+const counterSlice = createSlice({
     name: "counter",
     initialState: initState,
     reducers: {
@@ -22,48 +22,56 @@ createSlice({
         },
         toggle(state){
             state.showCounter = !state.showCounter;
+        },
+        reset(state) {
+            state.counter = 0;
         }
     }
+});
+
+const store = configureStore({
+    reducer: counterSlice.reducer,
 })
-const counterReducer = (state = initState, action) => {
-    if (action.type === INCREMENT) {
-        return {
-            counter: state.counter + 1,
-            showCounter: state.showCounter,
-        }
-    }
-
-    if (action.type === DECREMENT) {
-        return {
-            counter: state.counter - 1,
-            showCounter: state.showCounter,
-        }
-    }
-
-    if(action.type === INCREASE) {
-        return {
-            counter: state.counter + action.amount,
-            showCounter: state.showCounter,
-        }
-    }
-
-    if (action.type === TOGGLE) {
-        return {
-            counter: state.counter,
-            showCounter: !state.showCounter,
-        };
-    }
-
-    if (action.type === 'RESET') {
-        return {
-            counter: 0,
-        };
-    }
-
-    return state;
-};
-
-
-const store = createStore(counterReducer);
 
 export default store;
+
+
+// const counterReducer = (state = initState, action) => {
+//     if (action.type === INCREMENT) {
+//         return {
+//             counter: state.counter + 1,
+//             showCounter: state.showCounter,
+//         }
+//     }
+//
+//     if (action.type === DECREMENT) {
+//         return {
+//             counter: state.counter - 1,
+//             showCounter: state.showCounter,
+//         }
+//     }
+//
+//     if(action.type === INCREASE) {
+//         return {
+//             counter: state.counter + action.amount,
+//             showCounter: state.showCounter,
+//         }
+//     }
+//
+//     if (action.type === TOGGLE) {
+//         return {
+//             counter: state.counter,
+//             showCounter: !state.showCounter,
+//         };
+//     }
+//
+//     if (action.type === 'RESET') {
+//         return {
+//             counter: 0,
+//         };
+//     }
+//
+//     return state;
+// };
+//
+
