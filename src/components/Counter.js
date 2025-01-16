@@ -1,30 +1,33 @@
 import classes from './Counter.module.css';
 import {useDispatch, useSelector, connect} from "react-redux";
 import {Component, useState} from "react";
+import {DECREMENT, INCREASE, INCREMENT, TOGGLE} from "../constants";
 
 const Counter = () => {
 
     const dispatch = useDispatch();
 
     const counter = useSelector((state) => state.counter);
+    const showCounter = useSelector((state) => state.showCounter);
+
     const [inputValue, setInputValue] = useState('');
 
     const toggleCounterHandler = () => {
-
+        dispatch({type: TOGGLE});
     };
 
     const incrementCounterHandler = () => {
-        dispatch({type: 'INCREMENT'});
+        dispatch({type: INCREMENT});
     }
 
     const decrementCounterHandler = () => {
-        dispatch({type: 'DECREMENT'});
+        dispatch({type: DECREMENT});
     }
 
     const increaseCounterHandler = () => {
         const amount = parseInt(inputValue, 10); // Convert input to a number
         if(!isNaN(amount)) {
-            dispatch({type: 'INCREASE', amount: amount});
+            dispatch({type: INCREASE, amount: amount});
             setInputValue(''); // Clear the input field after dispatching
         } else {
             alert('Please enter a valid number');
@@ -34,7 +37,7 @@ const Counter = () => {
     return (
         <main className={classes.counter}>
             <h1>Redux Counter</h1>
-            <div className={classes.value}>{counter}</div>
+            {showCounter && <div className={classes.value}>{counter}</div>}
             <div>
                 <button onClick={incrementCounterHandler}>Increment</button>
                 <button onClick={decrementCounterHandler}>Decrement</button>
