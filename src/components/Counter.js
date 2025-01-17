@@ -3,6 +3,8 @@ import {useDispatch, useSelector, connect} from "react-redux";
 import {Component, useState} from "react";
 import {DECREMENT, INCREASE, INCREMENT, TOGGLE} from "../constants";
 
+import {counterActions} from "../store/index";
+
 const Counter = () => {
 
     const dispatch = useDispatch();
@@ -13,21 +15,21 @@ const Counter = () => {
     const [inputValue, setInputValue] = useState('');
 
     const toggleCounterHandler = () => {
-        dispatch({type: TOGGLE});
+        dispatch(counterActions.toggle());
     };
 
     const incrementCounterHandler = () => {
-        dispatch({type: INCREMENT});
+        dispatch(counterActions.increment());
     }
 
     const decrementCounterHandler = () => {
-        dispatch({type: DECREMENT});
+        dispatch(counterActions.decrement());
     }
 
     const increaseCounterHandler = () => {
         const amount = parseInt(inputValue, 10); // Convert input to a number
         if(!isNaN(amount)) {
-            dispatch({type: INCREASE, amount: amount});
+            dispatch(counterActions.increase(amount));
             setInputValue(''); // Clear the input field after dispatching
         } else {
             alert('Please enter a valid number');
