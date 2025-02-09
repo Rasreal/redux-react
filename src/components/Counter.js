@@ -1,5 +1,6 @@
+import React from 'react';
 import classes from './Counter.module.css';
-import {useDispatch, useSelector, connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Component, useState} from "react";
 import {DECREMENT, INCREASE, INCREMENT, TOGGLE} from "../constants";
 
